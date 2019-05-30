@@ -79,10 +79,8 @@
 </template>
 <script >
 import service from './service/CountryService.js';
-import store from '@/store.js';
 
-
-  export default {
+export default {
   name: 'app',
   data() {
     return {
@@ -101,7 +99,7 @@ import store from '@/store.js';
       this.$store.commit('loadCountries', response.data);
       this.$store.commit('changeIsLoaded', true);
     })
-      .catch((error) => {
+      .catch(() => {
         this.$store.commit('changeIsLoaded', true);
       });
   },

@@ -29,21 +29,27 @@
       <p>{{country[0].population}}</p>
         <span><strong>Languages you can use?</strong></span>
         <ul style="list-style: none;">
-          <li v-for="lang in country[0].languages">
-            {{lang.name}} - (native) {{lang.nativeName}}
-          </li>
+          <template v-for="lang in country[0].languages">
+            <li v-bind:key="lang">
+              {{lang.name}} - (native) {{lang.nativeName}}
+            </li>
+          </template>
         </ul>
         <br />
         <span><strong>Country borders with?</strong></span>
         <ul style="list-style: none;">
-          <li v-for="border in country[0].borders">{{border}}</li>
+          <template v-for="border in country[0].borders">
+                      <li v-bind:key="border">{{border}}</li>
+          </template>
         </ul>
         <br />
         <span><strong>What currencies you can pay with?</strong></span>
         <ul style="list-style: none;">
-          <li v-for="currency in country[0].currencies">
-            {{currency.name}} - {{currency.symbol}}
+          <template v-for="currency in country[0].currencies">
+            <li v-bind:key="currency">
+              {{currency.name}} - {{currency.symbol}}
             </li>
+          </template>
         </ul>
         <br />
   </div>
@@ -51,8 +57,6 @@
 
 
 <script>
-import store from '@/store';
-
 export default {
   data() {
     return {

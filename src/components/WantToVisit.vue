@@ -27,21 +27,33 @@
         </div>
         <div v-if="countries.length === 0"> No country was marked as WANT TO VISIT</div>
           <ul style="list-style: none;">
-            <li v-for="country in countries">
-              <div style="background-color: lightgrey; padding: 1rem; margin: 1rem; width: 100%; display: inline-flex;">
-                <div class="list-element-main-info">
-                  <h3>{{ country.name }}</h3>
-                  <h5>( Native name: <strong>{{ country.nativeName }}</strong> )</h5>
-                  <p> What region you might ask? It is placed in <strong>{{ country.region }}</strong></p>
-                  <img class="flag" v-bind:src="country.flag" />
-                  <p v-if="country.note">{{country.note}}</p>
-                </div>
-                <div class="list-element-actions">
-                  <v-btn color="warning" class="button" @click="onDialogClick(country.name)">Add note</v-btn>
-                  <v-btn color="info" class="button" @click="onMoreInfoClick(country.name)">More info?</v-btn>
-                </div>
-              </div>
-            </li>
+             <ul style="list-style: none;">
+    <template v-for="country in countries">
+      <li v-bind:key="country.name">
+      <div class="country">
+        <div class="list-element-main-info">
+          <h3>{{ country.name }}</h3>
+          <h5>( Native name: <strong>{{ country.nativeName }}</strong> )</h5>
+          <p> What region you might ask? It is placed in <strong>{{ country.region }}</strong></p>
+          <img class="flag" v-bind:src="country.flag" />
+        </div>
+        <div class="list-element-actions">
+          <v-btn color="success" class="button" v-on:click="addToVisited(country)" >
+            Visited
+          </v-btn>
+          <v-btn color="warning" class="button" v-on:click="addToWantToVisit(country)">
+            Want to visit
+          </v-btn>
+          <v-btn color="info" class="button">
+            <router-link v-bind:to="'/country/' + country.name">
+              View more
+            </router-link>
+          </v-btn>
+          </div>
+        </div>
+      </li>
+    </template>
+  </ul>
           </ul>
       </div>
     </v-layout>
@@ -50,9 +62,6 @@
 
 
 <script>
-import axios from 'axios';
-import store from '@/store';
-
 export default {
   data() {
     return {

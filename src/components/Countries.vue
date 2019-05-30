@@ -23,29 +23,31 @@
         ></v-text-field>
   </div>
   <ul style="list-style: none;">
-  <li v-for="country in countries">
-    <div class="country">
-      <div class="list-element-main-info">
-        <h3>{{ country.name }}</h3>
-        <h5>( Native name: <strong>{{ country.nativeName }}</strong> )</h5>
-        <p> What region you might ask? It is placed in <strong>{{ country.region }}</strong></p>
-        <img class="flag" v-bind:src="country.flag" />
-      </div>
-      <div class="list-element-actions">
-        <v-btn color="success" class="button" v-on:click="addToVisited(country)" >
-          Visited
-        </v-btn>
-        <v-btn color="warning" class="button" v-on:click="addToWantToVisit(country)">
-          Want to visit
-        </v-btn>
-        <v-btn color="info" class="button">
-          <router-link v-bind:to="'/country/' + country.name">
-            View more
-          </router-link>
-        </v-btn>
+    <template v-for="country in countries">
+      <li v-bind:key="country.name">
+      <div class="country">
+        <div class="list-element-main-info">
+          <h3>{{ country.name }}</h3>
+          <h5>( Native name: <strong>{{ country.nativeName }}</strong> )</h5>
+          <p> What region you might ask? It is placed in <strong>{{ country.region }}</strong></p>
+          <img class="flag" v-bind:src="country.flag" />
         </div>
-      </div>
-    </li>
+        <div class="list-element-actions">
+          <v-btn color="success" class="button" v-on:click="addToVisited(country)" >
+            Visited
+          </v-btn>
+          <v-btn color="warning" class="button" v-on:click="addToWantToVisit(country)">
+            Want to visit
+          </v-btn>
+          <v-btn color="info" class="button">
+            <router-link v-bind:to="'/country/' + country.name">
+              View more
+            </router-link>
+          </v-btn>
+          </div>
+        </div>
+      </li>
+    </template>
   </ul>
 </div>
   </div>
@@ -80,9 +82,6 @@ export default  {
     },
     isLoadedState() {
       return this.$store.state.isCountriesLoaded;
-    },
-    currentSelectS() {
-      console.log(this.$data.currentSelect);
     },
   },
 }
